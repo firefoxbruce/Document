@@ -1,0 +1,78 @@
+内核编译需要的库文件:
+sudo apt-get install build-essential
+sudo apt-get install libncurses5
+sudo apt-get install libncurses5-dev
+在编译内核时可能存在找不到 arm-linux-gnueabihf的情况;这是需要安全如下编译器
+sudo apt-get install gcc-4.7-arm-linux-gnueabihf
+如果安装了上面的编译器还是有问题的话:
+cd /usr/bin
+ls | grep arm
+查看是否有gcc-4.7-arm-linux-gnueabihf
+如果有,则建立软链接:
+ln -s gcc-4.7-arm-linux-gnueabihf arm-linux-gnueabihf-
+ln -s gcc-4.7-arm-linux-gnueabihf arm-linux-gnueabihf-gcc
+
+
+一个用ln命令生成的文件，用ls –l命令去察看，就可以看到显示的link的路径了
+
+undefined reference to `hwmon_device_register'其原因时在内核配置时配置了CONFIG_AXP_HWMON=y但是CONFIG_HWMON没有配置或配置成了m，解决办法时修改.config，将CONFIG_HWMON配置为y，即可
+
+ubuntu 14.04 64位系统编译linux kernel时提示：
+
+    “mkimage” command not found – U-Boot images will not be built
+安装u-boot-tools可破
+sudo apt-get install u-boot-tools
+
+动态ip配置:
+vim /etc/network/interfaces
+auto eth0 
+iface eth0 inet dhcp
+
+minicom工具:
+sudo apt-get install lrzsz :相关传输协议
+
+A20内核编译错误undefined reference to `hwmon_device_register'
+vi .config  
+修改：  
+CONFIG_HWMON=y  
+
+
+
+
+
+cubie@cubieez:/media/nanda$ sudo cp /home/cubie/kernel/uImage ./
+
+
+
+LiveSuit 安装:http://linux-sunxi.org/LiveSuite#Running_LiveSuit    当出现livesuite找不到设备时重新安装一次就可以了
+
+
+
+scp sourcefile cubie@172.1.12.16:/home/cubieboarde/kernerl_destFile   :远程cp命令
+
+SSH cubie@172.1.12.16  :远程登录
+
+
+u盘挂载:
+1.运行命令cat /proc/partitions 或者lsblk(查看块设备 )
+2.sudo mount -t 文件系统类型 设备路经 访问路经 (分区挂载 ):
+
+
+标准交叉编译工具链:
+1.brucewu@brucewu-B85-D3V:~/tools/android-ndk-r15c$ ./build/tools/make-standalone-toolchain.sh
+2.Package installed to /tmp/ndk-brucewu.
+3.brucewu@brucewu-B85-D3V:/tmp/ndk-brucewu$ tar -xvjf arm-linux-androideabi.tar.bz2 
+4.export PATH=/home/Administrator/toolchains/arm-linux-androideabi-4.6/bin:$PATH
+5.arm-linux-androideabi-gcc  test.c -o test
+6.test.c 是准备的一个非常简单的 c 程序，当然也可以是一个 c++ 程序，命令就要换成：
+arm-linux-androideabi-g++ test.cpp -o test
+
+
+mbedtels生产动态库
+1.make cc=arm-none-eabi-gcc SHARED=1 (arm版本)
+
+编译工具链查询:
+brucewu@brucewu-B85-D3V:~$ arm-none-eabi-
+brucewu@brucewu-B85-D3V:~$ arm-linux-gnueabihf-
+
+
